@@ -1,0 +1,43 @@
+using System;
+using FileHelpers;
+
+namespace Microcelium.Importer.Parsing
+{
+  /// <summary>
+  /// An implementation of <see cref="IParserReader{SqlDataReader}" />
+  ///  that uses FileHelpers to parse the file and ultimated returns
+  ///  a result set compatible with <see cref="System.Data.IDataReader" />
+  /// </summary>
+  public class SqlDataReaderParser : IParserReader<SqlDataReader>
+  {
+    private readonly FileHelperAsyncEngine engine;
+    private readonly Type recordType;
+    private IDisposable engineReader;
+
+    /// <summary>
+    /// Instantiates a SqlDataReaderParser
+    /// </summary>
+    public SqlDataReaderParser(FileHelperAsyncEngine engine, Type recordType)
+    {
+      this.engine = engine;
+      this.recordType = recordType;
+    }
+
+    /// <inheritdoc />
+    public SqlDataReader CreateReader(string filePath, int journalEventId)
+    {
+      this.engine.AfterReadRecord += (_, e) => ((IImportRecord)e.Record).ImportEventId = journalEventId;
+      this.engine.
+      this.engineReader = engine.BeginReadFile(filePath);
+      return new SqlDataReader(new FileHelperParserEngine(engine), recordType);
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+      this.engineReader?.Dispose();
+      this.engine.Close();
+      (this.engine as IDisposable)?.Dispose();
+    }
+  }
+}

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' ==''">true</GenerateDocumentationFile>
+    <DebugType Condition="'$(DebugType)' ==''">portable</DebugType>
+    <DebugSymbols Condition="'$(DebugSymbols)' ==''">true</DebugSymbols>
+    <IncludeSymbolsInPackage Condition="'$(IncludeSymbolsInPackage)' == ''">true</IncludeSymbolsInPackage>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Copyright>Copyright inteligenz @ 2019</Copyright>
+    <DefineConstants Condition="'$(COMPUTERNAME)' == 'JG-DEV2' OR '$(COMPUTERNAME)' == 'SS-DEV2' OR '$(COMPUTERNAME)' == 'JM-DEV'">$(DefineConstants);DEVELOPER_MACHINE</DefineConstants>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <SourceLinkBitbucketGitHost Include="stash.inteligenz-cloud.com" Version="3.4" />
+  </ItemGroup>
+  <PropertyGroup>
+    <Product>Microcelium.Importer</Product>
+    <Description>File Import Framework</Description>
+    <Authors>inteligenz</Authors>
+    <PackageTags>microcelium importer cmd files io</PackageTags>
+  </PropertyGroup>
+</Project>
